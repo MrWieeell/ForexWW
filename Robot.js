@@ -2,7 +2,8 @@ var xPos = 5;
 var yPos = 5; // Initial x + y position for the robot.
 var objectiveCoords = [[0, 0], [0, 10], [10, 0], [10, 10]];
 var brokenDown = 0;
-var facing = "up";
+var facing = "left";
+var directions = ["up", "right", "down", "left"];
 
 function sleep(milliseconds) {
     const date = Date.now();
@@ -32,12 +33,20 @@ function checkForBreakdown() {
     return false;
 }
 
+function turnRobot(facing) {
+    return directions[(directions.indexOf(facing) + 1) % directions.length]
+}
+
 function selfRepair() {
     brokenDown = 0;
 }
 
 function moveLeft() {
-    facing = "left";
+    while(facing !== "left") {
+        logPosition();
+        facing = turnRobot(facing);
+        sleep(1000);
+    }
     xPos--;
     if(xPos < 0) {
         xPos = 0;
@@ -51,7 +60,11 @@ function moveLeft() {
 }
 
 function moveRight() {
-    facing = "right";
+    while(facing !== "right") {
+        logPosition();
+        facing = turnRobot(facing);
+        sleep(1000);
+    }
     xPos++;
     if(xPos > 10) {
         xPos = 10;
@@ -65,7 +78,11 @@ function moveRight() {
 }
 
 function moveUp() {
-    facing = "up";
+    while(facing !== "up") {
+        logPosition();
+        facing = turnRobot(facing);
+        sleep(1000);
+    }
     yPos--;
     if(yPos < 0) {
         yPos = 0;
@@ -79,7 +96,11 @@ function moveUp() {
 }
 
 function moveDown() {
-    facing = "down";
+    while(facing !== "down") {
+        logPosition();
+        facing = turnRobot(facing);
+        sleep(1000);
+    }
     yPos++;
     if(yPos > 10) {
         yPos = 10;
@@ -92,7 +113,7 @@ function moveDown() {
     };
 }
 
-for(let i = 0; i < objectiveCoords.length; i++) {
+for(let i = 0; i < 1; i++) {
     while(objectiveCoords[i][0] < xPos) {
         moveLeft();
         logPosition();
