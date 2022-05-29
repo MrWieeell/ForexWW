@@ -14,8 +14,9 @@ function sleep(milliseconds) {
 }
 
 function logPosition() {
-    console.log("My current co-ordinates are: " + xPos + ", " + yPos);
-    console.log("I'm currently facing: " + facing);
+    sleep(1000);
+    console.log(`My current co-ordinates are: ${xPos}, ${yPos}`);
+    console.log(`I'm currently facing: ${facing}`);
     (brokenDown) ? console.log("I'm currently broken down.") : console.log("I'm currently functioning normally.");
     console.log();
 }
@@ -43,9 +44,8 @@ function selfRepair() {
 
 function moveLeft() {
     while(facing !== "left") {
-        logPosition();
         facing = turnRobot(facing);
-        sleep(1000);
+        logPosition();
     }
     xPos--;
     if(xPos < 0) {
@@ -54,16 +54,14 @@ function moveLeft() {
 
     if(checkForBreakdown()) {
         logPosition();
-        sleep(1000);
         selfRepair();
     };
 }
 
 function moveRight() {
     while(facing !== "right") {
-        logPosition();
         facing = turnRobot(facing);
-        sleep(1000);
+        logPosition();
     }
     xPos++;
     if(xPos > 10) {
@@ -72,16 +70,14 @@ function moveRight() {
 
     if(checkForBreakdown()) {
         logPosition();
-        sleep(1000);
         selfRepair();
     };
 }
 
 function moveUp() {
     while(facing !== "up") {
-        logPosition();
         facing = turnRobot(facing);
-        sleep(1000);
+        logPosition();
     }
     yPos--;
     if(yPos < 0) {
@@ -90,16 +86,14 @@ function moveUp() {
 
     if(checkForBreakdown()) {
         logPosition();
-        sleep(1000);
         selfRepair();
     }
 }
 
 function moveDown() {
     while(facing !== "down") {
-        logPosition();
         facing = turnRobot(facing);
-        sleep(1000);
+        logPosition();
     }
     yPos++;
     if(yPos > 10) {
@@ -108,34 +102,29 @@ function moveDown() {
 
     if(checkForBreakdown()) {
         logPosition();
-        sleep(1000);
         selfRepair();
     };
 }
 
-for(let i = 0; i < 1; i++) {
+for(let i = 0; i < objectiveCoords.length; i++) {
     while(objectiveCoords[i][0] < xPos) {
         moveLeft();
         logPosition();
-        sleep(1000);
     }
 
     while(objectiveCoords[i][0] > xPos) {
         moveRight();
         logPosition();
-        sleep(1000);
     }
 
     while(objectiveCoords[i][1] < yPos) {
         moveUp();
         logPosition();
-        sleep(1000);
     }
 
     while(objectiveCoords[i][1] > yPos) {
         moveDown();
         logPosition();
-        sleep(1000);
     }
 
     // We can assume at this point the robot is ontop of the objective, so we can ask the robot to return to the center now and then progress on to the next objective.
@@ -144,28 +133,24 @@ for(let i = 0; i < 1; i++) {
         moveRight();
         objectiveCoords[i][0]++;
         logPosition();
-        sleep(1000);
     }
 
     while(objectiveCoords[i][0] > 5) {
         moveLeft();
         objectiveCoords[i][0]--;
         logPosition();
-        sleep(1000);
     }
 
     while(objectiveCoords[i][1] < 5) {
         moveDown();
         objectiveCoords[i][1]++;
         logPosition();
-        sleep(1000);
     }
 
     while(objectiveCoords[i][1] > 5) {
         moveUp();
         objectiveCoords[i][1]--;
         logPosition();
-        sleep(1000);
     }
 
     // The robot has now successfully gone to an objective and returned it to the center. After this loop, if you console.log(objectiveCoords); it would give you [[5, 5], [5, 5] [5, 5], [5, 5]]
